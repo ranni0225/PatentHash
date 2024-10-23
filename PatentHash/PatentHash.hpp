@@ -535,7 +535,7 @@ namespace rk
             data += progid;
 
             WCHAR shell32FilePath[MAX_PATH] = {};
-            if (const UINT bufferSizeNeeded = ::GetSystemDirectory(shell32FilePath, ARRAYSIZE(shell32FilePath));
+            if (const auto &bufferSizeNeeded = ::GetSystemDirectory(shell32FilePath, ARRAYSIZE(shell32FilePath));
                 bufferSizeNeeded == 0 || bufferSizeNeeded > ARRAYSIZE(shell32FilePath)) {
                 return false;
             }
