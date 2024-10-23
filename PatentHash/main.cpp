@@ -20,10 +20,12 @@ namespace
     }
 }    // namespace
 
-bool EnumerateAndCheckUserChoiceHash(const HKEY key, const LPCWSTR subkey)
+bool EnumerateAndCheckUserChoiceHash(_In_ const HKEY key, _In_ const LPCWSTR subkey)
 {
     CString sid;
-    utility::UserSid::GetCurrentUserSid(sid);
+    if (!utility::UserSid::GetCurrentUserSid(sid)) {
+        return false;
+    }
 
     CRegKey root;
     if (root.Open(key, subkey, KEY_READ) != ERROR_SUCCESS) {
@@ -33,10 +35,10 @@ bool EnumerateAndCheckUserChoiceHash(const HKEY key, const LPCWSTR subkey)
 
     constexpr DWORD buffer1Length          = 32;
     WCHAR           buffer1[buffer1Length] = {};
-    DWORD           actualLength1          = buffer1Length;
+    DWORD           buffer1LengthUsed      = buffer1Length;
 
     int index = 0;
-    while (root.EnumKey(index, buffer1, &actualLength1, nullptr) == ERROR_SUCCESS) {
+    while (root.EnumKey(index, buffer1, &buffer1LengthUsed, nullptr) == ERROR_SUCCESS) {
         const CString type                = buffer1;
         const CString userChoiceKeyString = F(L"%s\\%s\\UserChoice", subkey, type.GetString());
 
@@ -49,21 +51,21 @@ bool EnumerateAndCheckUserChoiceHash(const HKEY key, const LPCWSTR subkey)
 
             constexpr DWORD buffer2Length          = 64;
             WCHAR           buffer2[buffer2Length] = {};
-            DWORD           actualLength2          = buffer2Length;
-            if (userChoiceKey.QueryStringValue(L"ProgId", buffer2, &actualLength2) != ERROR_SUCCESS) {
+            DWORD           buffer2LengthUsed      = buffer2Length;
+            if (userChoiceKey.QueryStringValue(L"ProgId", buffer2, &buffer2LengthUsed) != ERROR_SUCCESS) {
                 ::OutputDebugString(F(L"[%s]: failed to query ProgId value\n", type.GetString()));
                 break;
             }
-            CString progid = buffer2;
+            const CString progid = buffer2;
 
             constexpr DWORD buffer3Length          = 16;
             WCHAR           buffer3[buffer3Length] = {};
-            DWORD           actualLength3          = buffer3Length;
-            if (userChoiceKey.QueryStringValue(L"Hash", buffer3, &actualLength3) != ERROR_SUCCESS) {
+            DWORD           buffer3LengthUsed      = buffer3Length;
+            if (userChoiceKey.QueryStringValue(L"Hash", buffer3, &buffer3LengthUsed) != ERROR_SUCCESS) {
                 ::OutputDebugString(F(L"[%s]: failed to query Hash value\n", type.GetString()));
                 break;
             }
-            CString hashFromRegistry = buffer3;
+            const CString hashFromRegistry = buffer3;
 
             CString timestamp;
             if (!UserChoiceHash::GetUserChoiceRegistryTimestamp(type, sid, timestamp)) {
@@ -88,7 +90,7 @@ bool EnumerateAndCheckUserChoiceHash(const HKEY key, const LPCWSTR subkey)
         } while (false);
 
         ++index;
-        actualLength1 = buffer1Length;
+        buffer1LengthUsed = buffer1Length;
     }
 
     return true;

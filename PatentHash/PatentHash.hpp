@@ -468,7 +468,9 @@ namespace rk
             constexpr UINT32 digestLengthAsUint32 = digestLength / sizeof(UINT32);
 
             BYTE md5[digestLength] = {};
-            utility::MD5::GetMD5(data, dataLength, md5, digestLength);
+            if (!utility::MD5::GetMD5(data, dataLength, md5, digestLength)) {
+                return false;
+            }
 
             UINT32 t1   = 0;
             UINT32 sum1 = 0;
