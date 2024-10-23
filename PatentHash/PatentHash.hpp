@@ -535,9 +535,9 @@ namespace rk
             data += progid;
 
             WCHAR shell32FilePath[MAX_PATH] = {};
-            switch (::GetSystemDirectory(shell32FilePath, ARRAYSIZE(shell32FilePath))) {
-                case 0:
-                case ARRAYSIZE(shell32FilePath): return false;
+            if (const UINT bufferSizeNeeded = ::GetSystemDirectory(shell32FilePath, ARRAYSIZE(shell32FilePath));
+                bufferSizeNeeded == 0 || bufferSizeNeeded > ARRAYSIZE(shell32FilePath)) {
+                return false;
             }
 
             if (FAILED(::PathCchAppend(shell32FilePath, ARRAYSIZE(shell32FilePath), L"shell32.dll"))) {
