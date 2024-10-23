@@ -7,7 +7,7 @@ namespace
     constexpr wchar_t kFileExts[]        = L"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts";
     constexpr wchar_t kUrlAssociations[] = L"Software\\Microsoft\\Windows\\Shell\\Associations\\UrlAssociations";
 
-    CString F(_In_z_ _Printf_format_string_ PCWSTR format, ...)
+    CString F(_In_z_ _Printf_format_string_ LPCWSTR format, ...)
     {
         CString s;
 
