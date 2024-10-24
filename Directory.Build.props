@@ -10,6 +10,7 @@
 	<PropertyGroup>
 		<OutDir>$(SolutionDir)build\output\$(Platform)\$(Configuration)\</OutDir>
 		<IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+		<BaseIntermediateOutputPath>$(IntDir)obj\</BaseIntermediateOutputPath>
 		<CharacterSet>Unicode</CharacterSet>
 		<!-- <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir> -->
 	</PropertyGroup>
@@ -44,7 +45,9 @@
 	<Import Project="$(DirectoryBuildPropsPath)" Condition="'$(DirectoryBuildPropsPath)' != ''"/>
 
 	<!-- Enable NuGet Features(PackageReferences) -->
-	<!--
+	<PropertyGroup>
+		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+	</PropertyGroup>
 	<ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
 		<ProjectCapability Include="PackageReferences"/>
 	</ItemGroup>
@@ -52,6 +55,5 @@
 		<NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == ''">native,Version=v0.0</NuGetTargetMoniker>
 		<RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == ''">win;win-x86;win-x64;win-arm;win-arm64</RuntimeIdentifiers>
 	</PropertyGroup>
-	-->
 
 </Project>
