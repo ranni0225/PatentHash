@@ -286,7 +286,7 @@ namespace rk
                 return false;
             }
 
-            if (utility::Base64::GetBase64(reinterpret_cast<BYTE *>(&hash), sizeof(hash), output)) {
+            if (!utility::Base64::GetBase64(reinterpret_cast<BYTE *>(&hash), sizeof(hash), output)) {
                 return false;
             }
 

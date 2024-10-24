@@ -74,7 +74,7 @@ bool EnumerateAndCheckUserChoiceHash(_In_ const HKEY key, _In_ const LPCWSTR sub
             }
 
             CString hashFromCalculation;
-            if (UserChoiceHash::GetUserChoiceHash(type, progid, timestamp, sid, hashFromCalculation)) {
+            if (!UserChoiceHash::GetUserChoiceHash(type, progid, timestamp, sid, hashFromCalculation)) {
                 ::OutputDebugString(F(L"[%s]: failed to calculate UserChoice hash\n", type.GetString()));
                 break;
             }
