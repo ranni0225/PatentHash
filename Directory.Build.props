@@ -9,7 +9,7 @@
 	<!-- Project Settings -->
 	<PropertyGroup>
 		<OutDir>$(SolutionDir)build\output\$(Platform)\$(Configuration)\</OutDir>
-		<IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+		<IntDir>$(SolutionDir)build\intermediate\$(MSBuildProjectName)\$(Platform)\$(Configuration)\</IntDir>
 		<BaseIntermediateOutputPath>$(IntDir)obj\</BaseIntermediateOutputPath>
 		<CharacterSet>Unicode</CharacterSet>
 		<!-- <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir> -->
