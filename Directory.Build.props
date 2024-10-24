@@ -45,13 +45,13 @@
 
 	<!-- Enable NuGet Features(PackageReferences) -->
 	<!--
-    <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
-        <ProjectCapability Include="PackageReferences"/>
-    </ItemGroup>
-    <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
-        <NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == ''">native,Version=v0.0</NuGetTargetMoniker>
-        <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == ''">win;win-x86;win-x64;win-arm;win-arm64</RuntimeIdentifiers>
-    </PropertyGroup>
-    -->
+	<ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
+		<ProjectCapability Include="PackageReferences"/>
+	</ItemGroup>
+	<PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
+		<NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == ''">native,Version=v0.0</NuGetTargetMoniker>
+		<RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == ''">win;win-x86;win-x64;win-arm;win-arm64</RuntimeIdentifiers>
+	</PropertyGroup>
+	-->
 
 </Project>
